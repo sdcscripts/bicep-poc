@@ -1,0 +1,45 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "adUserId": {
+        "value": "b4a789b5-b75d-43f0-896e-2da1a695af3a"
+      },
+      "vmadminusername": {
+        "value": "localadmin"
+      },
+      "firsthostname": {
+        "value": "dockerhost1"
+      },
+      "location": {
+        "value": "UK South"
+      },
+      "rgname": {
+        "value": "dockerhost"
+      },
+      "addressprefix": {
+        "value": "10.0.0.0/16"
+      },
+      "subnet1name": {
+        "value": "dockersubnet"
+      },
+      "subnet1prefix": {
+        "value": "10.0.0.0/24"
+      },
+      "virtualnetworkname": {
+        "value": "dockervnet"
+      },
+      "publicIPAddressNameSuffix": {
+        "value": "dockerhostip"
+      }, 
+      "networkSecurityGroupName": {
+        "value": "dockernsg"
+      },
+      "windowsOSVersion": {
+        "value": "2019-Datacenter"
+      },
+      "host1vmSize": {
+        "value": "Standard_D2_v3"
+      }
+    }
+  }
