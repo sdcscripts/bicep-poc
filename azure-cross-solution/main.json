@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.3.255.40792",
-      "templateHash": "18235181257652531078"
+      "templateHash": "9266904208999731265"
     }
   },
   "parameters": {
@@ -18,31 +18,31 @@
       "maxLength": 36,
       "minLength": 36
     },
-    "vmadminusername": {
+    "VmAdminUsername": {
       "type": "string",
       "defaultValue": "localadmin"
     },
-    "location": {
+    "Location": {
       "type": "string",
       "defaultValue": "UK South"
     },
-    "rgname": {
+    "ResourceGroupName": {
       "type": "string",
       "defaultValue": "singlehost"
     },
-    "firsthostname": {
+    "FirstHostname": {
       "type": "string",
       "defaultValue": "dkrhost1"
     },
-    "secondhostname": {
+    "SecondHostname": {
       "type": "string",
       "defaultValue": "dkrhost2"
     },
-    "networkSecurityGroupName": {
+    "NetworkSecurityGroupName": {
       "type": "string",
       "defaultValue": "dockernsg"
     },
-    "addressprefix": {
+    "VNetAddressPrefix": {
       "type": "string",
       "defaultValue": "172.16.0.0/16"
     },
@@ -50,19 +50,19 @@
       "type": "string",
       "defaultValue": "dockerhostip"
     },
-    "subnet1name": {
+    "Subnet1Name": {
       "type": "string",
       "defaultValue": "dockersubnet"
     },
-    "subnet1prefix": {
+    "Subnet1Prefix": {
       "type": "string",
       "defaultValue": "172.16.24.0/24"
     },
-    "virtualnetworkname": {
+    "VNetName": {
       "type": "string",
       "defaultValue": "dockervnet"
     },
-    "host1vmSize": {
+    "HostVmSize": {
       "type": "string",
       "defaultValue": "Standard_D2_v3"
     }
@@ -72,14 +72,14 @@
     {
       "type": "Microsoft.Resources/resourceGroups",
       "apiVersion": "2020-10-01",
-      "name": "[parameters('rgname')]",
-      "location": "[parameters('location')]"
+      "name": "[parameters('ResourceGroupName')]",
+      "location": "[parameters('Location')]"
     },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2019-10-01",
       "name": "kv",
-      "resourceGroup": "[parameters('rgname')]",
+      "resourceGroup": "[parameters('ResourceGroupName')]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -195,14 +195,14 @@
         }
       },
       "dependsOn": [
-        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('rgname'))]"
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('ResourceGroupName'))]"
       ]
     },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2019-10-01",
-      "name": "[parameters('firsthostname')]",
-      "resourceGroup": "[parameters('rgname')]",
+      "name": "[parameters('FirstHostname')]",
+      "resourceGroup": "[parameters('ResourceGroupName')]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -210,22 +210,22 @@
         "mode": "Incremental",
         "parameters": {
           "adminusername": {
-            "value": "[parameters('vmadminusername')]"
+            "value": "[parameters('VmAdminUsername')]"
           },
           "keyvault_name": {
-            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('rgname')), 'Microsoft.Resources/deployments', 'kv'), '2019-10-01').outputs.keyvaultname.value]"
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', 'kv'), '2019-10-01').outputs.keyvaultname.value]"
           },
           "vmname": {
-            "value": "[parameters('firsthostname')]"
+            "value": "[parameters('FirstHostname')]"
           },
           "subnet1ref": {
-            "value": "[format('{0}/subnets/{1}', reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('rgname')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.vnid.value, reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('rgname')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.subnet1name.value)]"
+            "value": "[format('{0}/subnets/{1}', reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.vnid.value, reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.subnet1name.value)]"
           },
           "pipid": {
-            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('rgname')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.pipid.value]"
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.pipid.value]"
           },
           "vmSize": {
-            "value": "[parameters('host1vmSize')]"
+            "value": "[parameters('HostVmSize')]"
           }
         },
         "template": {
@@ -370,16 +370,16 @@
         }
       },
       "dependsOn": [
-        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('rgname')), 'Microsoft.Resources/deployments', 'dockernetwork')]",
-        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('rgname')), 'Microsoft.Resources/deployments', 'kv')]",
-        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('rgname'))]"
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', 'dockernetwork')]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', 'kv')]",
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('ResourceGroupName'))]"
       ]
     },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2019-10-01",
-      "name": "[parameters('secondhostname')]",
-      "resourceGroup": "[parameters('rgname')]",
+      "name": "[parameters('SecondHostname')]",
+      "resourceGroup": "[parameters('ResourceGroupName')]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -387,22 +387,22 @@
         "mode": "Incremental",
         "parameters": {
           "adminusername": {
-            "value": "[parameters('vmadminusername')]"
+            "value": "[parameters('VmAdminUsername')]"
           },
           "keyvault_name": {
-            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('rgname')), 'Microsoft.Resources/deployments', 'kv'), '2019-10-01').outputs.keyvaultname.value]"
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', 'kv'), '2019-10-01').outputs.keyvaultname.value]"
           },
           "vmname": {
-            "value": "[parameters('secondhostname')]"
+            "value": "[parameters('SecondHostname')]"
           },
           "subnet1ref": {
-            "value": "[format('{0}/subnets/{1}', reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('rgname')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.vnid.value, reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('rgname')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.subnet1name.value)]"
+            "value": "[format('{0}/subnets/{1}', reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.vnid.value, reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.subnet1name.value)]"
           },
           "pipid": {
-            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('rgname')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.pipid2.value]"
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.pipid2.value]"
           },
           "vmSize": {
-            "value": "[parameters('host1vmSize')]"
+            "value": "[parameters('HostVmSize')]"
           }
         },
         "template": {
@@ -547,16 +547,16 @@
         }
       },
       "dependsOn": [
-        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('rgname')), 'Microsoft.Resources/deployments', 'dockernetwork')]",
-        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('rgname')), 'Microsoft.Resources/deployments', 'kv')]",
-        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('rgname'))]"
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', 'dockernetwork')]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', 'kv')]",
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('ResourceGroupName'))]"
       ]
     },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2019-10-01",
       "name": "dockernetwork",
-      "resourceGroup": "[parameters('rgname')]",
+      "resourceGroup": "[parameters('ResourceGroupName')]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -564,25 +564,25 @@
         "mode": "Incremental",
         "parameters": {
           "addressPrefix": {
-            "value": "[parameters('addressprefix')]"
+            "value": "[parameters('VNetAddressPrefix')]"
           },
           "location": {
-            "value": "[parameters('location')]"
+            "value": "[parameters('Location')]"
           },
           "networkSecurityGroupName": {
-            "value": "[parameters('networkSecurityGroupName')]"
+            "value": "[parameters('NetworkSecurityGroupName')]"
           },
           "publicIPAddressNameSuffix": {
             "value": "[parameters('publicIPAddressNameSuffix')]"
           },
           "subnet1Name": {
-            "value": "[parameters('subnet1name')]"
+            "value": "[parameters('Subnet1Name')]"
           },
           "subnet1Prefix": {
-            "value": "[parameters('subnet1prefix')]"
+            "value": "[parameters('Subnet1Prefix')]"
           },
           "virtualNetworkName": {
-            "value": "[parameters('virtualnetworkname')]"
+            "value": "[parameters('VNetName')]"
           }
         },
         "template": {
@@ -731,18 +731,18 @@
         }
       },
       "dependsOn": [
-        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('rgname'))]"
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('ResourceGroupName'))]"
       ]
     }
   ],
   "outputs": {
     "host1fqdn": {
       "type": "string",
-      "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('rgname')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.dockerhost1fqdn.value]"
+      "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.dockerhost1fqdn.value]"
     },
     "host2fqdn": {
       "type": "string",
-      "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('rgname')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.dockerhost2fqdn.value]"
+      "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.dockerhost2fqdn.value]"
     }
   }
 }

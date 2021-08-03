@@ -5,40 +5,40 @@
       "adUserId": {
         "value": "31bc51c1-c74e-4d61-ae56-6061de35f3b8"
       },
-      "vmadminusername": {
+      "VmAdminUsername": {
         "value": "localadmin"
       },
-      "firsthostname": {
+      "FirstHostname": {
         "value": "dkrhost1"
       },
-      "secondhostname": {
+      "SecondHostname": {
         "value": "dkrhost2"
       },
-      "location": {
+      "Location": {
         "value": "UK South"
       },
-      "rgname": {
+      "ResourceGroupName": {
         "value": "singlehost"
       },
-      "addressprefix": {
+      "VNetAddressPrefix": {
         "value": "172.16.0.0/16"
       },
-      "subnet1name": {
+      "Subnet1Name": {
         "value": "dockersubnet"
       },
-      "subnet1prefix": {
+      "Subnet1Prefix": {
         "value": "172.16.24.0/24"
       },
-      "virtualnetworkname": {
+      "VNetName": {
         "value": "dockervnet"
       },
       "publicIPAddressNameSuffix": {
         "value": "dockerhostip"
       }, 
-      "networkSecurityGroupName": {
+      "NetworkSecurityGroupName": {
         "value": "dockernsg"
       },
-      "host1vmSize": {
+      "HostVmSize": {
         "value": "Standard_D2_v3"
       }
     }

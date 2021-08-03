@@ -3,27 +3,27 @@
 @minLength(36)
 @maxLength(36)
 @description('Used to set the Keyvault access policy - run this command using az cli to get your ObjectID : az ad signed-in-user show --query objectId -o tsv')
-param adUserId string                  = ''                
-param vmadminusername string           = 'localadmin'
-param location string                  = 'UK South'
-param rgname string                    = 'singlehost'
-param firsthostname string             = 'dkrhost1'
-param secondhostname string            = 'dkrhost2'
-param networkSecurityGroupName string  = 'dockernsg'
-param addressprefix string             = '172.16.0.0/16'
+param adUserId string                  = ''
+param VmAdminUsername string           = 'localadmin'
+param Location string                  = 'UK South'
+param ResourceGroupName string         = 'singlehost'
+param FirstHostname string             = 'dkrhost1'
+param SecondHostname string            = 'dkrhost2'
+param NetworkSecurityGroupName string  = 'dockernsg'
+param VNetAddressPrefix string         = '172.16.0.0/16'
 param publicIPAddressNameSuffix string = 'dockerhostip'
-param subnet1name string               = 'dockersubnet'
-param subnet1prefix string             = '172.16.24.0/24'
-param virtualnetworkname string        = 'dockervnet'
-param host1vmSize string               = 'Standard_D2_v3'
+param Subnet1Name string               = 'dockersubnet'
+param Subnet1Prefix string             = '172.16.24.0/24'
+param VNetName string                  = 'dockervnet'
+param HostVmSize string               = 'Standard_D2_v3'
 
 var subnet1ref = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.subnet1name}'
 
 targetScope = 'subscription'
 
 resource rg 'Microsoft.Resources/resourceGroups@2020-10-01' = {
-  name: rgname
-  location: location
+  name: ResourceGroupName
+  location: Location
 }
 
 module kv './modules/kv.bicep' = {
@@ -37,39 +37,39 @@ module kv './modules/kv.bicep' = {
 // The VM passwords are generated at run time and automatically stored in Keyvault. 
 module dockerhost1 './modules/vm.bicep' = {
   params: {
-    adminusername   : vmadminusername
+    adminusername   : VmAdminUsername
     keyvault_name   : kv.outputs.keyvaultname
-    vmname          : firsthostname
+    vmname          : FirstHostname
     subnet1ref      : subnet1ref
     pipid           : dockernetwork.outputs.pipid
-    vmSize          : host1vmSize
+    vmSize          : HostVmSize
   }
-  name: firsthostname
+  name: FirstHostname
   scope: rg
 } 
 
 module dockerhost2 './modules/vm.bicep' = {
   params: {
-    adminusername   : vmadminusername
+    adminusername   : VmAdminUsername
     keyvault_name   : kv.outputs.keyvaultname
-    vmname          : secondhostname
+    vmname          : SecondHostname
     subnet1ref      : subnet1ref
     pipid           : dockernetwork.outputs.pipid2
-    vmSize          : host1vmSize
+    vmSize          : HostVmSize
   }
-  name: secondhostname
+  name: SecondHostname
   scope: rg
 } 
 
 module dockernetwork './modules/network.bicep' = {
   params: {
-    addressPrefix            : addressprefix
-    location                 : location
-    networkSecurityGroupName : networkSecurityGroupName
+    addressPrefix            : VNetAddressPrefix
+    location                 : Location
+    networkSecurityGroupName : NetworkSecurityGroupName
     publicIPAddressNameSuffix: publicIPAddressNameSuffix
-    subnet1Name              : subnet1name
-    subnet1Prefix            : subnet1prefix
-    virtualNetworkName       : virtualnetworkname
+    subnet1Name              : Subnet1Name
+    subnet1Prefix            : Subnet1Prefix
+    virtualNetworkName       : VNetName
   }
 
   name: 'dockernetwork'
