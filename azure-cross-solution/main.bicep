@@ -1,18 +1,18 @@
 // Example of similar "module" call out structure - https://github.com/Azure/bicep/blob/main/docs/examples/301/modules-vwan-to-vnet-s2s-with-fw/main.bicep
 
-param vmadminusername string
-param location string
-param rgname string
-param firsthostname string            // first hostname 
-param secondhostname string           // second hostname
-param adUserId string                 // Used for Keyvault access policy, change to your user ObjectID using this command : az ad signed-in-user show --query objectId -o tsv
-param networkSecurityGroupName string
-param addressprefix string
-param publicIPAddressNameSuffix string
-param subnet1name string
-param subnet1prefix string
-param virtualnetworkname string
-param host1vmSize string
+param adUserId string                  = '' // Used for Keyvault access policy, change to your user ObjectID using this command : az ad signed-in-user show --query objectId -o tsv
+param vmadminusername string           = 'localadmin'
+param location string                  = 'UK South'
+param rgname string                    = 'singlehost'
+param firsthostname string             = 'dkrhost1'
+param secondhostname string            = 'dkrhost2'
+param networkSecurityGroupName string  = 'dockernsg'
+param addressprefix string             = '172.16.0.0/16'
+param publicIPAddressNameSuffix string = 'dockerhostip'
+param subnet1name string               = 'dockersubnet'
+param subnet1prefix string             = '172.16.24.0/24'
+param virtualnetworkname string        = 'dockervnet'
+param host1vmSize string               = 'Standard_D2_v3'
 
 var subnet1ref = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.subnet1name}'
 

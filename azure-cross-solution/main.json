@@ -5,48 +5,61 @@
     "_generator": {
       "name": "bicep",
       "version": "0.3.255.40792",
-      "templateHash": "14618263722752742845"
+      "templateHash": "14871338712345687329"
     }
   },
   "parameters": {
+    "adUserId": {
+      "type": "string",
+      "defaultValue": ""
+    },
     "vmadminusername": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "localadmin"
     },
     "location": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "UK South"
     },
     "rgname": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "singlehost"
     },
     "firsthostname": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "dkrhost1"
     },
     "secondhostname": {
-      "type": "string"
-    },
-    "adUserId": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "dkrhost2"
     },
     "networkSecurityGroupName": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "dockernsg"
     },
     "addressprefix": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "172.16.0.0/16"
     },
     "publicIPAddressNameSuffix": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "dockerhostip"
     },
     "subnet1name": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "dockersubnet"
     },
     "subnet1prefix": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "172.16.24.0/24"
     },
     "virtualnetworkname": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "dockervnet"
     },
     "host1vmSize": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "Standard_D2_v3"
     }
   },
   "functions": [],
@@ -574,29 +587,24 @@
             "_generator": {
               "name": "bicep",
               "version": "0.3.255.40792",
-              "templateHash": "8189279321325108740"
+              "templateHash": "8278912655473458790"
             }
           },
           "parameters": {
             "addressPrefix": {
-              "type": "string",
-              "defaultValue": "10.0.0.0/16"
+              "type": "string"
             },
             "subnet1Name": {
-              "type": "string",
-              "defaultValue": "Subnet"
+              "type": "string"
             },
             "subnet1Prefix": {
-              "type": "string",
-              "defaultValue": "10.0.0.0/24"
+              "type": "string"
             },
             "virtualNetworkName": {
-              "type": "string",
-              "defaultValue": "MyVNET"
+              "type": "string"
             },
             "networkSecurityGroupName": {
-              "type": "string",
-              "defaultValue": "default-NSG"
+              "type": "string"
             },
             "location": {
               "type": "string"
