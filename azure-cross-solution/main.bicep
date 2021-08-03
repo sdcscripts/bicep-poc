@@ -2,7 +2,7 @@
 
 @minLength(36)
 @maxLength(36)
-@description('Used to set the Keyvault access policy - run az ad signed-in-user show --query objectId -o tsv to get your ObjectID')
+@description('Used to set the Keyvault access policy - run this command using az cli to get your ObjectID : az ad signed-in-user show --query objectId -o tsv')
 param adUserId string                  = ''                
 param vmadminusername string           = 'localadmin'
 param location string                  = 'UK South'
