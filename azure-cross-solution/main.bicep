@@ -104,12 +104,12 @@ module dockernetwork './modules/network.bicep' = {
 output host1fqdn string = dockernetwork.outputs.dockerhost1fqdn
 output host2fqdn string = dockernetwork.outputs.dockerhost2fqdn
 
-/* Deployment
+/* Deployment using bicep (via az cli)
 
-The first command retrieves the signed-in usr object ID to use for setting Keyvault permissions, you need to add this ObjectID to aduserid in the main.parameters.json file .
+The first command retrieves the signed-in usr object ID to use for setting Keyvault permissions, you need to add this ObjectID to the adUserId parameter at the top of this file.
 Command:   az ad signed-in-user show --query objectId -o tsv
 
 The second command deploys this main.json 
-Command:   az deployment sub create --name docker-single-host --resource-group docker-single-host --template-file .\main.bicep --parameters '@main.parameters.json'
+Command: az deployment sub create --name docker-single-host --template-file .\main.bicep --location uksouth
 
  */
