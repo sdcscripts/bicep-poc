@@ -5,17 +5,14 @@
     "_generator": {
       "name": "bicep",
       "version": "0.3.255.40792",
-      "templateHash": "3550028554112274267"
+      "templateHash": "5590000821507520804"
     }
   },
   "parameters": {
     "adUserId": {
       "type": "string",
-      "defaultValue": ""
-    },
-    "region": {
-      "type": "string",
-      "defaultValue": "[parameters('location')]"
+      "defaultValue": "",
+      "minLength": 36
     },
     "vmadminusername": {
       "type": "string",
