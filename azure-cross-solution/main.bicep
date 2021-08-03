@@ -3,42 +3,42 @@
 @minLength(36)
 @maxLength(36)
 @description('Used to set the Keyvault access policy - run this command using az cli to get your ObjectID : az ad signed-in-user show --query objectId -o tsv')
-param adUserId string                  = ''
+param adUserId string  = ''
 
 @description('Set the location for the resource group and all resources')
-param Location string                  = 'UK South'
+param Location string = 'UK South'
 
 @description('Set the resource group name, this will be created automatically')
-param ResourceGroupName string         = 'singlehost'
+param ResourceGroupName string = 'singlehost'
 
 @description('Set the name of the first docker host')
 @maxLength(8)
-param FirstHostname string             = 'dkrhost1'
+param FirstHostname string = 'dkrhost1'
 
 @description('Set the name of the second docker host')
 @maxLength(8)
-param SecondHostname string            = 'dkrhost2'
+param SecondHostname string = 'dkrhost2'
 
 @description('Set the size for the VM')
-param HostVmSize string                = 'Standard_D2_v3'
+param HostVmSize string = 'Standard_D2_v3'
 
 @description('Set a username to log in to the hosts')
-param VmAdminUsername string           = 'localadmin'
+param VmAdminUsername string = 'localadmin'
 
 @description('Name of the first docker host')
-param VnetName string                  = 'dockervnet'
+param VnetName string = 'dockervnet'
 
 @description('Set the address space for the VNet')
-param VnetAddressPrefix string         = '172.16.0.0/16'
+param VnetAddressPrefix string = '172.16.0.0/16'
 
 @description('Set the name for Subnet1')
-param Subnet1Name string               = 'dockersubnet'
+param Subnet1Name string = 'dockersubnet'
 
 @description('Set the subnet range for Subnet1')
-param Subnet1Prefix string             = '172.16.24.0/24'
+param Subnet1Prefix string = '172.16.24.0/24'
 
 @description('Set the NSG name')
-param NetworkSecurityGroupName string  = 'dockernsg'
+param NetworkSecurityGroupName string = 'dockernsg'
 
 @description('Set the Public IP Address suffix to append to the FQDN for the hosts')
 param publicIPAddressNameSuffix string = 'dockerhostip'
