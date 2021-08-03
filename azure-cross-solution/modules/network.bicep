@@ -3,11 +3,11 @@
 
 // For now, this creates the vnet and you can add multiple subnets here too and output the names accordingly (subnet1,subnet2 etc), but this is temporary as it does not scale and isn't neat.
 
-param addressPrefix string            = '10.0.0.0/16'
-param subnet1Name  string              = 'Subnet'
-param subnet1Prefix string             = '10.0.0.0/24'
-param virtualNetworkName string       = 'MyVNET'
-param networkSecurityGroupName string = 'default-NSG'
+param addressPrefix string          
+param subnet1Name  string             
+param subnet1Prefix string             
+param virtualNetworkName string      
+param networkSecurityGroupName string 
 param location string
 param publicIPAddressNameSuffix string
 
