@@ -10,8 +10,8 @@ param FirstHostname string             = 'dkrhost1'
 param SecondHostname string            = 'dkrhost2'
 param HostVmSize string                = 'Standard_D2_v3'
 param VmAdminUsername string           = 'localadmin'
-param VNetName string                  = 'dockervnet'
-param VNetAddressPrefix string         = '172.16.0.0/16'
+param VnetName string                  = 'dockervnet'
+param VnetAddressPrefix string         = '172.16.0.0/16'
 param Subnet1Name string               = 'dockersubnet'
 param Subnet1Prefix string             = '172.16.24.0/24'
 param NetworkSecurityGroupName string  = 'dockernsg'
@@ -65,13 +65,13 @@ module dockerhost2 './modules/vm.bicep' = {
 
 module dockernetwork './modules/network.bicep' = {
   params: {
-    addressPrefix            : VNetAddressPrefix
+    addressPrefix            : VnetAddressPrefix
     location                 : Location
     networkSecurityGroupName : NetworkSecurityGroupName
     publicIPAddressNameSuffix: publicIPAddressNameSuffix
     subnet1Name              : Subnet1Name
     subnet1Prefix            : Subnet1Prefix
-    virtualNetworkName       : VNetName
+    virtualNetworkName       : VnetName
   }
 
   name: 'dockernetwork'

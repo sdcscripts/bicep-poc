@@ -42,11 +42,11 @@
       "type": "string",
       "defaultValue": "localadmin"
     },
-    "VNetName": {
+    "VnetName": {
       "type": "string",
       "defaultValue": "dockervnet"
     },
-    "VNetAddressPrefix": {
+    "VnetAddressPrefix": {
       "type": "string",
       "defaultValue": "172.16.0.0/16"
     },
@@ -564,7 +564,7 @@
         "mode": "Incremental",
         "parameters": {
           "addressPrefix": {
-            "value": "[parameters('VNetAddressPrefix')]"
+            "value": "[parameters('VnetAddressPrefix')]"
           },
           "location": {
             "value": "[parameters('Location')]"
@@ -582,7 +582,7 @@
             "value": "[parameters('Subnet1Prefix')]"
           },
           "virtualNetworkName": {
-            "value": "[parameters('VNetName')]"
+            "value": "[parameters('VnetName')]"
           }
         },
         "template": {

@@ -20,7 +20,7 @@
       "ResourceGroupName": {
         "value": "singlehost"
       },
-      "VNetAddressPrefix": {
+      "VnetAddressPrefix": {
         "value": "172.16.0.0/16"
       },
       "Subnet1Name": {
@@ -29,7 +29,7 @@
       "Subnet1Prefix": {
         "value": "172.16.24.0/24"
       },
-      "VNetName": {
+      "VnetName": {
         "value": "dockervnet"
       },
       "publicIPAddressNameSuffix": {
