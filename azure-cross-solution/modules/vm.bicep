@@ -13,7 +13,7 @@ param vmSize string
 @description('location for all resources')
 param location string = resourceGroup().location
 
-var storageAccountName = '${uniqueString(resourceGroup().id)}storacc'
+var storageAccountName = '${uniqueString(resourceGroup().id)}${vmname}sa'
 var nicName = '${vmname}myVMNic'
 
 resource stg 'Microsoft.Storage/storageAccounts@2019-06-01' = {
@@ -71,13 +71,13 @@ resource VM 'Microsoft.Compute/virtualMachines@2020-06-01' = {
       osDisk: {
         createOption: 'FromImage'
       }
-      dataDisks: [
+    /*  dataDisks: [                  // Uncomment to add data disk
         {
           diskSizeGB: 1023
           lun: 0
           createOption: 'Empty'
         }
-      ]
+      ] */
     }
     networkProfile: {
       networkInterfaces: [

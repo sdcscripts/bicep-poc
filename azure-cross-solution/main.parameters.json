@@ -9,7 +9,10 @@
         "value": "localadmin"
       },
       "firsthostname": {
-        "value": "dockerhost1"
+        "value": "dkrhost1"
+      },
+      "secondhostname": {
+        "value": "dkrhost2"
       },
       "location": {
         "value": "UK South"
@@ -18,13 +21,13 @@
         "value": "singlehost"
       },
       "addressprefix": {
-        "value": "10.0.0.0/16"
+        "value": "172.16.0.0/16"
       },
       "subnet1name": {
         "value": "dockersubnet"
       },
       "subnet1prefix": {
-        "value": "10.0.0.0/24"
+        "value": "172.16.24.0/24"
       },
       "virtualnetworkname": {
         "value": "dockervnet"
