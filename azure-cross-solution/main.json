@@ -5,13 +5,17 @@
     "_generator": {
       "name": "bicep",
       "version": "0.3.255.40792",
-      "templateHash": "5590000821507520804"
+      "templateHash": "3885484608725262576"
     }
   },
   "parameters": {
     "adUserId": {
       "type": "string",
       "defaultValue": "",
+      "metadata": {
+        "description": "Used to set the Keyvault access policy - run az ad signed-in-user show --query objectId -o tsv to get your ObjectID"
+      },
+      "maxLength": 36,
       "minLength": 36
     },
     "vmadminusername": {

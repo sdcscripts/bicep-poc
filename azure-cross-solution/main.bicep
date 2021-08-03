@@ -1,8 +1,9 @@
 // Example of similar "module" call out structure - https://github.com/Azure/bicep/blob/main/docs/examples/301/modules-vwan-to-vnet-s2s-with-fw/main.bicep
 
 @minLength(36)
-param adUserId string                  = ''                // Used for Keyvault access policy, change to your user ObjectID using this command : az ad signed-in-user show --query objectId -o tsv
-
+@maxLength(36)
+@description('Used to set the Keyvault access policy - run az ad signed-in-user show --query objectId -o tsv to get your ObjectID')
+param adUserId string                  = ''                
 param vmadminusername string           = 'localadmin'
 param location string                  = 'UK South'
 param rgname string                    = 'singlehost'
