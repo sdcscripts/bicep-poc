@@ -15,7 +15,7 @@
         "value": "UK South"
       },
       "rgname": {
-        "value": "dockerhost"
+        "value": "singlehost"
       },
       "addressprefix": {
         "value": "10.0.0.0/16"
@@ -34,9 +34,6 @@
       }, 
       "networkSecurityGroupName": {
         "value": "dockernsg"
-      },
-      "windowsOSVersion": {
-        "value": "2019-Datacenter"
       },
       "host1vmSize": {
         "value": "Standard_D2_v3"

@@ -1,3 +1,5 @@
+// Example of similar "module" call out structure - https://github.com/Azure/bicep/blob/main/docs/examples/301/modules-vwan-to-vnet-s2s-with-fw/main.bicep
+
 param vmadminusername string
 param location string
 param rgname string
@@ -9,7 +11,6 @@ param publicIPAddressNameSuffix string
 param subnet1name string
 param subnet1prefix string
 param virtualnetworkname string
-param windowsOSVersion string
 param host1vmSize string
 
 var subnet1ref = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.subnet1name}'
@@ -36,7 +37,6 @@ module vm './vm.bicep' = {
     vmname          : firsthostname
     subnet1ref      : subnet1ref
     pipid           : dockernetwork.outputs.pipid
-    windowsOSVersion: windowsOSVersion
     vmSize          : host1vmSize
   }
   name: firsthostname
@@ -58,15 +58,11 @@ module dockernetwork './network.bicep' = {
   scope: rg
 } 
 
-
-// todo  - subnetRef = '${vn.id}/subnets/${subnetName}'
-
-
-
-
 /* Deployment
 
- $currentuserObjectID = az ad signed-in-user show --query objectId -o tsv
- az deployment sub create --name docker-single-host --resource-group docker-single-host --template-file .\main.bicep --parameters @main.parameters.json
+The first command retrieves the signed-in usr object ID to use for setting Keyvault permissions. 
+The second command deploys. Note that the --% allows the parameter file to be read correctly when launching from a powershell windows, this is because @ is interpreted as "splatting" by Powershell.
+az ad signed-in-user show --query objectId -o tsv
+az --% deployment sub create --name docker-single-host --resource-group docker-single-host --template-file .\main.bicep --parameters @main.parameters.json
 
  */

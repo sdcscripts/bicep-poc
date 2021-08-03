@@ -7,18 +7,6 @@ param pipid string
 @secure()
 param adminPassword string = '${uniqueString(subscription().id, resourceGroup().id)}aA1!' // aA1! to meet complexity requirements
 
-@allowed([
-  '2008-R2-SP1'
-  '2012-Datacenter'
-  '2012-R2-Datacenter'
-  '2016-Nano-Server'
-  '2016-Datacenter-with-Containers'
-  '2016-Datacenter'
-  '2019-Datacenter'
-])
-@description('The Windows version for the VM. This will pick a fully patched image of this given Windows version.')
-param windowsOSVersion string 
-
 @description('Size of the virtual machine.')
 param vmSize string 
 
@@ -74,9 +62,10 @@ resource VM 'Microsoft.Compute/virtualMachines@2020-06-01' = {
     }
     storageProfile: {
       imageReference: {
-        publisher: 'MicrosoftWindowsServer'
-        offer: 'WindowsServer'
-        sku: windowsOSVersion
+
+        publisher: 'canonical'
+        offer: '0001-com-ubuntu-server-hirsute'
+        sku: '21_04'
         version: 'latest'
       }
       osDisk: {
