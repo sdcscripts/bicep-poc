@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.3.255.40792",
-      "templateHash": "4126340821834119031"
+      "templateHash": "682427174663064753"
     }
   },
   "parameters": {
@@ -20,51 +20,89 @@
     },
     "Location": {
       "type": "string",
-      "defaultValue": "UK South"
+      "defaultValue": "UK South",
+      "metadata": {
+        "description": "Set the location for the resource group and all resources"
+      }
     },
     "ResourceGroupName": {
       "type": "string",
-      "defaultValue": "singlehost"
+      "defaultValue": "singlehost",
+      "metadata": {
+        "description": "Set the resource group name, this will be created automatically"
+      }
     },
     "FirstHostname": {
       "type": "string",
-      "defaultValue": "dkrhost1"
+      "defaultValue": "dkrhost1",
+      "maxLength": 8,
+      "metadata": {
+        "description": "Set the name of the first docker host"
+      }
     },
     "SecondHostname": {
       "type": "string",
-      "defaultValue": "dkrhost2"
+      "defaultValue": "dkrhost2",
+      "maxLength": 8,
+      "metadata": {
+        "description": "Set the name of the second docker host"
+      }
     },
     "HostVmSize": {
       "type": "string",
-      "defaultValue": "Standard_D2_v3"
+      "defaultValue": "Standard_D2_v3",
+      "metadata": {
+        "description": "Set the size for the VM"
+      }
     },
     "VmAdminUsername": {
       "type": "string",
-      "defaultValue": "localadmin"
+      "defaultValue": "localadmin",
+      "metadata": {
+        "description": "Set a username to log in to the hosts"
+      }
     },
     "VnetName": {
       "type": "string",
-      "defaultValue": "dockervnet"
+      "defaultValue": "dockervnet",
+      "metadata": {
+        "description": "Name of the first docker host"
+      }
     },
     "VnetAddressPrefix": {
       "type": "string",
-      "defaultValue": "172.16.0.0/16"
+      "defaultValue": "172.16.0.0/16",
+      "metadata": {
+        "description": "Set the address space for the VNet"
+      }
     },
     "Subnet1Name": {
       "type": "string",
-      "defaultValue": "dockersubnet"
+      "defaultValue": "dockersubnet",
+      "metadata": {
+        "description": "Set the name for Subnet1"
+      }
     },
     "Subnet1Prefix": {
       "type": "string",
-      "defaultValue": "172.16.24.0/24"
+      "defaultValue": "172.16.24.0/24",
+      "metadata": {
+        "description": "Set the subnet range for Subnet1"
+      }
     },
     "NetworkSecurityGroupName": {
       "type": "string",
-      "defaultValue": "dockernsg"
+      "defaultValue": "dockernsg",
+      "metadata": {
+        "description": "Set the NSG name"
+      }
     },
     "publicIPAddressNameSuffix": {
       "type": "string",
-      "defaultValue": "dockerhostip"
+      "defaultValue": "dockerhostip",
+      "metadata": {
+        "description": "Set the Public IP Address suffix to append to the FQDN for the hosts"
+      }
     }
   },
   "functions": [],
