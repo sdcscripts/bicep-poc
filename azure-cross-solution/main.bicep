@@ -4,18 +4,20 @@
 @maxLength(36)
 @description('Used to set the Keyvault access policy - run this command using az cli to get your ObjectID : az ad signed-in-user show --query objectId -o tsv')
 param adUserId string                  = ''
-param VmAdminUsername string           = 'localadmin'
 param Location string                  = 'UK South'
 param ResourceGroupName string         = 'singlehost'
 param FirstHostname string             = 'dkrhost1'
 param SecondHostname string            = 'dkrhost2'
-param NetworkSecurityGroupName string  = 'dockernsg'
+param HostVmSize string                = 'Standard_D2_v3'
+param VmAdminUsername string           = 'localadmin'
+param VNetName string                  = 'dockervnet'
 param VNetAddressPrefix string         = '172.16.0.0/16'
-param publicIPAddressNameSuffix string = 'dockerhostip'
 param Subnet1Name string               = 'dockersubnet'
 param Subnet1Prefix string             = '172.16.24.0/24'
-param VNetName string                  = 'dockervnet'
-param HostVmSize string               = 'Standard_D2_v3'
+param NetworkSecurityGroupName string  = 'dockernsg'
+param publicIPAddressNameSuffix string = 'dockerhostip'
+
+
 
 var subnet1ref = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.subnet1name}'
 

@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.3.255.40792",
-      "templateHash": "9266904208999731265"
+      "templateHash": "4126340821834119031"
     }
   },
   "parameters": {
@@ -17,10 +17,6 @@
       },
       "maxLength": 36,
       "minLength": 36
-    },
-    "VmAdminUsername": {
-      "type": "string",
-      "defaultValue": "localadmin"
     },
     "Location": {
       "type": "string",
@@ -38,17 +34,21 @@
       "type": "string",
       "defaultValue": "dkrhost2"
     },
-    "NetworkSecurityGroupName": {
+    "HostVmSize": {
       "type": "string",
-      "defaultValue": "dockernsg"
+      "defaultValue": "Standard_D2_v3"
+    },
+    "VmAdminUsername": {
+      "type": "string",
+      "defaultValue": "localadmin"
+    },
+    "VNetName": {
+      "type": "string",
+      "defaultValue": "dockervnet"
     },
     "VNetAddressPrefix": {
       "type": "string",
       "defaultValue": "172.16.0.0/16"
-    },
-    "publicIPAddressNameSuffix": {
-      "type": "string",
-      "defaultValue": "dockerhostip"
     },
     "Subnet1Name": {
       "type": "string",
@@ -58,13 +58,13 @@
       "type": "string",
       "defaultValue": "172.16.24.0/24"
     },
-    "VNetName": {
+    "NetworkSecurityGroupName": {
       "type": "string",
-      "defaultValue": "dockervnet"
+      "defaultValue": "dockernsg"
     },
-    "HostVmSize": {
+    "publicIPAddressNameSuffix": {
       "type": "string",
-      "defaultValue": "Standard_D2_v3"
+      "defaultValue": "dockerhostip"
     }
   },
   "functions": [],
