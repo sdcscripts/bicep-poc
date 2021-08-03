@@ -22,7 +22,7 @@ resource rg 'Microsoft.Resources/resourceGroups@2020-10-01' = {
   location: location
 }
 
-module kv './kv.bicep' = {
+module kv './modules/kv.bicep' = {
   params: {
     adUserId: adUserId
   }
@@ -30,7 +30,7 @@ module kv './kv.bicep' = {
   scope: rg
 }
 
-module vm './vm.bicep' = {
+module vm './modules/vm.bicep' = {
   params: {
     adminusername   : vmadminusername
     keyvault_name   : kv.outputs.keyvaultname
@@ -43,7 +43,7 @@ module vm './vm.bicep' = {
   scope: rg
 } 
 
-module dockernetwork './network.bicep' = {
+module dockernetwork './modules/network.bicep' = {
   params: {
     addressPrefix            : addressprefix
     location                 : location
@@ -57,6 +57,9 @@ module dockernetwork './network.bicep' = {
   name: 'dockernetwork'
   scope: rg
 } 
+
+output host1fqdn string = dockernetwork.outputs.dockerhost1fqdn
+
 
 /* Deployment
 
