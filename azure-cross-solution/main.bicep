@@ -3,9 +3,9 @@
 param vmadminusername string
 param location string
 param rgname string
-param firsthostname string  // first hostname 
-param secondhostname string  // second hostname
-param adUserId string  // Used for Keyvault access policy, change to your user ObjectID using this command : az ad signed-in-user show --query objectId -o tsv
+param firsthostname string            // first hostname 
+param secondhostname string           // second hostname
+param adUserId string                 // Used for Keyvault access policy, change to your user ObjectID using this command : az ad signed-in-user show --query objectId -o tsv
 param networkSecurityGroupName string
 param addressprefix string
 param publicIPAddressNameSuffix string
@@ -81,7 +81,7 @@ output host2fqdn string = dockernetwork.outputs.dockerhost2fqdn
 The first command retrieves the signed-in usr object ID to use for setting Keyvault permissions, you need to add this ObjectID to aduserid in the main.parameters.json file .
 Command:   az ad signed-in-user show --query objectId -o tsv
 
-The second command deploys. Note that the --% allows the parameter file to be read correctly when launching from a powershell windows, this is because @ is interpreted as "splatting" by Powershell.
-Command:   az --% deployment sub create --name docker-single-host --resource-group docker-single-host --template-file .\main.bicep --parameters @main.parameters.json
+The second command deploys this main.json 
+Command:   az deployment sub create --name docker-single-host --resource-group docker-single-host --template-file .\main.bicep --parameters '@main.parameters.json'
 
  */
