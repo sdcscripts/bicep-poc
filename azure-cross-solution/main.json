@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.3.255.40792",
-      "templateHash": "682427174663064753"
+      "templateHash": "14087997202441646592"
     }
   },
   "parameters": {
@@ -273,7 +273,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.3.255.40792",
-              "templateHash": "11298926814590005003"
+              "templateHash": "15126539004111300777"
             }
           },
           "parameters": {
@@ -403,6 +403,28 @@
                   "enabled": true
                 }
               }
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2021-03-01",
+              "name": "[format('{0}/cse', parameters('vmname'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.Azure.Extensions",
+                "type": "CustomScript",
+                "typeHandlerVersion": "2.1",
+                "autoUpgradeMinorVersion": false,
+                "settings": {},
+                "protectedSettings": {
+                  "fileUris": [
+                    "https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/cse.sh"
+                  ],
+                  "commandToExecute": "sh cse.sh"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmname'))]"
+              ]
             }
           ]
         }
@@ -450,7 +472,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.3.255.40792",
-              "templateHash": "11298926814590005003"
+              "templateHash": "15126539004111300777"
             }
           },
           "parameters": {
@@ -580,6 +602,28 @@
                   "enabled": true
                 }
               }
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2021-03-01",
+              "name": "[format('{0}/cse', parameters('vmname'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.Azure.Extensions",
+                "type": "CustomScript",
+                "typeHandlerVersion": "2.1",
+                "autoUpgradeMinorVersion": false,
+                "settings": {},
+                "protectedSettings": {
+                  "fileUris": [
+                    "https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/cse.sh"
+                  ],
+                  "commandToExecute": "sh cse.sh"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmname'))]"
+              ]
             }
           ]
         }

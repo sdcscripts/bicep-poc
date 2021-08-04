@@ -106,3 +106,24 @@ resource keyvaultname_secretname 'Microsoft.keyvault/vaults/secrets@2019-09-01' 
   }
 }
 
+resource cse 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
+  name: '${vmname}/cse'
+  location: location
+  dependsOn:[
+    VM
+  ]
+   properties: {
+    publisher: 'Microsoft.Azure.Extensions'
+    type: 'CustomScript'
+    typeHandlerVersion: '2.1' 
+    autoUpgradeMinorVersion: false
+    settings: {}
+    protectedSettings: {
+      fileUris: [
+        'https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/cse.sh'
+      ]
+      commandToExecute: 'sh cse.sh'
+    }
+    
+   }
+}
