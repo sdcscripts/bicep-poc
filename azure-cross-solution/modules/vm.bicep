@@ -15,6 +15,7 @@ param location string = resourceGroup().location
 
 var storageAccountName = '${uniqueString(resourceGroup().id)}${vmname}sa'
 var nicName = '${vmname}myVMNic'
+var githubPath = 'https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/'
 
 resource stg 'Microsoft.Storage/storageAccounts@2019-06-01' = {
   name: storageAccountName
@@ -120,7 +121,7 @@ resource cse 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
     settings: {}
     protectedSettings: {
       fileUris: [
-        'https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/cse.sh'
+        '${githubPath}cse.sh'
       ]
       commandToExecute: 'sh cse.sh'
     }

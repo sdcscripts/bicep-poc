@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.3.255.40792",
-      "templateHash": "14087997202441646592"
+      "templateHash": "7746446776648941885"
     }
   },
   "parameters": {
@@ -273,7 +273,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.3.255.40792",
-              "templateHash": "15126539004111300777"
+              "templateHash": "16253659374868960974"
             }
           },
           "parameters": {
@@ -313,7 +313,8 @@
           "functions": [],
           "variables": {
             "storageAccountName": "[format('{0}{1}sa', uniqueString(resourceGroup().id), parameters('vmname'))]",
-            "nicName": "[format('{0}myVMNic', parameters('vmname'))]"
+            "nicName": "[format('{0}myVMNic', parameters('vmname'))]",
+            "githubPath": "https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/"
           },
           "resources": [
             {
@@ -417,7 +418,7 @@
                 "settings": {},
                 "protectedSettings": {
                   "fileUris": [
-                    "https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/cse.sh"
+                    "[format('{0}cse.sh', variables('githubPath'))]"
                   ],
                   "commandToExecute": "sh cse.sh"
                 }
@@ -472,7 +473,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.3.255.40792",
-              "templateHash": "15126539004111300777"
+              "templateHash": "16253659374868960974"
             }
           },
           "parameters": {
@@ -512,7 +513,8 @@
           "functions": [],
           "variables": {
             "storageAccountName": "[format('{0}{1}sa', uniqueString(resourceGroup().id), parameters('vmname'))]",
-            "nicName": "[format('{0}myVMNic', parameters('vmname'))]"
+            "nicName": "[format('{0}myVMNic', parameters('vmname'))]",
+            "githubPath": "https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/"
           },
           "resources": [
             {
@@ -616,7 +618,7 @@
                 "settings": {},
                 "protectedSettings": {
                   "fileUris": [
-                    "https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/cse.sh"
+                    "[format('{0}cse.sh', variables('githubPath'))]"
                   ],
                   "commandToExecute": "sh cse.sh"
                 }
