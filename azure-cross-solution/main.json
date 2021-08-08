@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.3.255.40792",
-      "templateHash": "7746446776648941885"
+      "templateHash": "18019404907823353426"
     }
   },
   "parameters": {
@@ -273,7 +273,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.3.255.40792",
-              "templateHash": "16253659374868960974"
+              "templateHash": "9694769962763885751"
             }
           },
           "parameters": {
@@ -314,7 +314,7 @@
           "variables": {
             "storageAccountName": "[format('{0}{1}sa', uniqueString(resourceGroup().id), parameters('vmname'))]",
             "nicName": "[format('{0}myVMNic', parameters('vmname'))]",
-            "githubPath": "https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/"
+            "githubPath": "https://raw.githubusercontent.com/sdcscripts/bicep-poc/fileuri/azure-cross-solution/scripts/"
           },
           "resources": [
             {
@@ -473,7 +473,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.3.255.40792",
-              "templateHash": "16253659374868960974"
+              "templateHash": "9694769962763885751"
             }
           },
           "parameters": {
@@ -514,7 +514,7 @@
           "variables": {
             "storageAccountName": "[format('{0}{1}sa', uniqueString(resourceGroup().id), parameters('vmname'))]",
             "nicName": "[format('{0}myVMNic', parameters('vmname'))]",
-            "githubPath": "https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/"
+            "githubPath": "https://raw.githubusercontent.com/sdcscripts/bicep-poc/fileuri/azure-cross-solution/scripts/"
           },
           "resources": [
             {
@@ -827,6 +827,10 @@
     "host2fqdn": {
       "type": "string",
       "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', 'dockernetwork'), '2019-10-01').outputs.dockerhost2fqdn.value]"
+    },
+    "uri": {
+      "type": "string",
+      "value": "[deployment().properties.templateLink.uri]"
     }
   }
 }
