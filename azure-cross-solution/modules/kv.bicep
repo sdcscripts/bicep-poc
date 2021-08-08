@@ -1,6 +1,6 @@
 param location string = resourceGroup().location
 param tenantId string = subscription().tenantId
-param keyvaultname string = '${resourceGroup().name}-${uniqueString(resourceGroup().id, subscription().id)}' // to help create globally unique string for the Keyvault
+param keyvaultname string = '${resourceGroup().name}-${uniqueString(resourceGroup().id)}' // to help create globally unique string for the Keyvault
 // param secretName string = 'testsecret'
 param adUserId string
 
