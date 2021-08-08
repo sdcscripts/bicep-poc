@@ -40,7 +40,7 @@ param NetworkSecurityGroupName string = 'dockernsg'
 param publicIPAddressNameSuffix string = 'dhostip'
 
 @description('Set the path to the github directory that has the custom script extension scripts')
-param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-poc/fileuri/azure-cross-solution/scripts/'
+param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/'
 
 @description('Set the number of hosts to create')
 @maxValue(2)
