@@ -15,7 +15,7 @@ param location string = resourceGroup().location
 
 var storageAccountName = '${uniqueString(resourceGroup().id)}${vmname}sa'
 var nicName = '${vmname}myVMNic'
-var githubPath = 'https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/'
+var githubPath = 'https://raw.githubusercontent.com/sdcscripts/bicep-poc/fileuri/azure-cross-solution/scripts/'
 
 resource stg 'Microsoft.Storage/storageAccounts@2019-06-01' = {
   name: storageAccountName

@@ -113,3 +113,5 @@ The second command deploys this main.json
 Command: az deployment sub create --name docker-single-host --template-file .\main.bicep --location uksouth
 
  */
+
+output uri string = deployment().properties.templateLink.uri
