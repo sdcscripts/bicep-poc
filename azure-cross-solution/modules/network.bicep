@@ -9,31 +9,6 @@ param subnet1Prefix string
 param virtualNetworkName string      
 param networkSecurityGroupName string 
 param location string
-param publicIPAddressNameSuffix string
-
-var dnsLabelPrefix = 'dns-${uniqueString(subscription().id, resourceGroup().id)}-${publicIPAddressNameSuffix}'
-
-resource pip 'Microsoft.Network/publicIPAddresses@2020-06-01' = {
-  name: publicIPAddressNameSuffix
-  location: location
-  properties: {
-    publicIPAllocationMethod: 'Dynamic'
-    dnsSettings: {
-      domainNameLabel: dnsLabelPrefix
-    }
-  }
-}
-
-resource pip2 'Microsoft.Network/publicIPAddresses@2020-06-01' = {
-  name: '${publicIPAddressNameSuffix}2'
-  location: location
-  properties: {
-    publicIPAllocationMethod: 'Dynamic'
-    dnsSettings: {
-      domainNameLabel: '${dnsLabelPrefix}2'
-    }
-  }
-}
 
 resource sg 'Microsoft.Network/networkSecurityGroups@2020-06-01' = {
   name: networkSecurityGroupName
@@ -80,10 +55,6 @@ resource vn 'Microsoft.Network/virtualNetworks@2020-06-01' = {
   }
 }
 
-output dockerhost1fqdn string = pip.properties.dnsSettings.fqdn
-output dockerhost2fqdn string = pip2.properties.dnsSettings.fqdn
+
 output subnet1name string = vn.properties.subnets[0].name
 output vnid string = vn.id
-output pipaddressname string = pip.name
-output pipid string = pip.id
-output pipid2 string = pip2.id

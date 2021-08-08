@@ -2,8 +2,7 @@ param adminusername string
 param keyvault_name string 
 param vmname string
 param subnet1ref string
-param pipid string
-
+param githubPath string
 @secure()
 param adminPassword string = '${uniqueString(subscription().id, resourceGroup().id)}aA1!' // aA1! to meet complexity requirements
 
@@ -15,7 +14,21 @@ param location string = resourceGroup().location
 
 var storageAccountName = '${uniqueString(resourceGroup().id)}${vmname}sa'
 var nicName = '${vmname}myVMNic'
-var githubPath = 'https://raw.githubusercontent.com/sdcscripts/bicep-poc/fileuri/azure-cross-solution/scripts/'
+
+param publicIPAddressNameSuffix string
+
+var dnsLabelPrefix = 'dns-${uniqueString(resourceGroup().id)}-${publicIPAddressNameSuffix}'
+
+resource pip 'Microsoft.Network/publicIPAddresses@2020-06-01' = {
+  name: publicIPAddressNameSuffix
+  location: location
+  properties: {
+    publicIPAllocationMethod: 'Dynamic'
+    dnsSettings: {
+      domainNameLabel: dnsLabelPrefix
+    }
+  }
+}
 
 resource stg 'Microsoft.Storage/storageAccounts@2019-06-01' = {
   name: storageAccountName
@@ -38,7 +51,7 @@ resource nInter 'Microsoft.Network/networkInterfaces@2020-06-01' = {
         properties: {
           privateIPAllocationMethod: 'Dynamic'
           publicIPAddress: {
-            id: pipid
+            id: pip.id
           }
           subnet: {
             id: subnet1ref
@@ -128,3 +141,5 @@ resource cse 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
     
    }
 }
+
+output dockerhostfqdn string = pip.properties.dnsSettings.fqdn
