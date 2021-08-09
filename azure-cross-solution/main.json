@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.3.255.40792",
-      "templateHash": "9052429053356793126"
+      "templateHash": "4338830708565418724"
     }
   },
   "parameters": {
@@ -106,8 +106,8 @@
     "numberOfHosts": {
       "type": "int",
       "defaultValue": 2,
-      "minValue": 9,
-      "maxValue": 2,
+      "maxValue": 9,
+      "minValue": 2,
       "metadata": {
         "description": "Set the number of hosts to create"
       }

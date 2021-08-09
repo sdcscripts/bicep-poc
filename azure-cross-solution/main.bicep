@@ -43,8 +43,8 @@ param publicIPAddressNameSuffix string = 'dhostip'
 param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/'
 
 @description('Set the number of hosts to create')
-@maxValue(2)
-@minValue(9)
+@minValue(2)
+@maxValue(9)
 param numberOfHosts int = 2
 
 var subnet1ref = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.subnet1name}'
