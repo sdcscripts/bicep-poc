@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.3.255.40792",
-      "templateHash": "13989359954144067908"
+      "templateHash": "9052429053356793126"
     }
   },
   "parameters": {
@@ -106,7 +106,7 @@
     "numberOfHosts": {
       "type": "int",
       "defaultValue": 2,
-      "minValue": 2,
+      "minValue": 9,
       "maxValue": 2,
       "metadata": {
         "description": "Set the number of hosts to create"
@@ -606,13 +606,12 @@
     }
   ],
   "outputs": {
-    "dockerhost1": {
-      "type": "string",
-      "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', format('{0}{1}', parameters('VmHostname'), range(1, parameters('numberOfHosts'))[0])), '2019-10-01').outputs.dockerhostfqdn.value]"
-    },
-    "dockerhost2": {
-      "type": "string",
-      "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', format('{0}{1}', parameters('VmHostname'), range(1, parameters('numberOfHosts'))[1])), '2019-10-01').outputs.dockerhostfqdn.value]"
+    "HostFQDNs": {
+      "type": "array",
+      "copy": {
+        "count": "[length(range(1, parameters('numberOfHosts')))]",
+        "input": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('ResourceGroupName')), 'Microsoft.Resources/deployments', format('{0}{1}', parameters('VmHostname'), range(1, parameters('numberOfHosts'))[sub(range(1, parameters('numberOfHosts'))[copyIndex()], 1)])), '2019-10-01').outputs.dockerhostfqdn.value]"
+      }
     }
   }
 }

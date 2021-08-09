@@ -44,7 +44,7 @@ param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-po
 
 @description('Set the number of hosts to create')
 @maxValue(2)
-@minValue(2)
+@minValue(9)
 param numberOfHosts int = 2
 
 var subnet1ref = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.subnet1name}'
@@ -93,9 +93,8 @@ module dockernetwork './modules/network.bicep' = {
 } 
 
 // Future iteration this should be replaced with a loop through outputs of the module
-output dockerhost1 string = dockerhost[0].outputs.dockerhostfqdn
-output dockerhost2 string = dockerhost[1].outputs.dockerhostfqdn
 
+output HostFQDNs array = [for i in range(1, numberOfHosts): dockerhost[i - 1].outputs.dockerhostfqdn]
 
 /* Deployment using bicep (via az cli)
 
