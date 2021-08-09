@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.3.255.40792",
-      "templateHash": "5846771695910432676"
+      "templateHash": "12028284579150990040"
     }
   },
   "parameters": {
@@ -21,6 +21,8 @@
     "Location": {
       "type": "string",
       "defaultValue": "UK South",
+      "maxLength": 20,
+      "minLength": 3,
       "metadata": {
         "description": "Set the location for the resource group and all resources"
       }
@@ -29,6 +31,7 @@
       "type": "string",
       "defaultValue": "singlehost",
       "maxLength": 10,
+      "minLength": 3,
       "metadata": {
         "description": "Set the resource group name, this will be created automatically"
       }
@@ -37,6 +40,7 @@
       "type": "string",
       "defaultValue": "dkrhost",
       "maxLength": 8,
+      "minLength": 3,
       "metadata": {
         "description": "Set the prefix of the docker hosts"
       }
@@ -44,6 +48,7 @@
     "HostVmSize": {
       "type": "string",
       "defaultValue": "Standard_D2_v3",
+      "minLength": 6,
       "metadata": {
         "description": "Set the size for the VM"
       }
@@ -51,6 +56,7 @@
     "VmAdminUsername": {
       "type": "string",
       "defaultValue": "localadmin",
+      "minLength": 3,
       "metadata": {
         "description": "Set a username to log in to the hosts"
       }
@@ -58,6 +64,7 @@
     "VnetName": {
       "type": "string",
       "defaultValue": "dockervnet",
+      "minLength": 3,
       "metadata": {
         "description": "Name of the vnet"
       }
@@ -79,6 +86,7 @@
     "Subnet1Prefix": {
       "type": "string",
       "defaultValue": "172.16.24.0/24",
+      "minLength": 9,
       "metadata": {
         "description": "Set the subnet range for subnet1"
       }
@@ -86,6 +94,7 @@
     "NetworkSecurityGroupName": {
       "type": "string",
       "defaultValue": "dockernsg",
+      "minLength": 3,
       "metadata": {
         "description": "Set the NSG name"
       }
@@ -94,6 +103,7 @@
       "type": "string",
       "defaultValue": "dhostip",
       "maxLength": 7,
+      "minLength": 3,
       "metadata": {
         "description": "Set the Public IP Address suffix to append to the FQDN for the hosts"
       }
@@ -101,6 +111,7 @@
     "githubPath": {
       "type": "string",
       "defaultValue": "https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/",
+      "minLength": 10,
       "metadata": {
         "description": "Set the path to the github directory that has the custom script extension scripts"
       }
