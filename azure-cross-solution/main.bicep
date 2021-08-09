@@ -6,23 +6,30 @@
 param adUserId string  = ''
 
 @description('Set the location for the resource group and all resources')
+@minLength(3)
+@maxLength(20)
 param Location string = 'UK South'
 
 @description('Set the resource group name, this will be created automatically')
+@minLength(3)
 @maxLength(10)
 param ResourceGroupName string = 'singlehost'
 
 @description('Set the prefix of the docker hosts')
+@minLength(3)
 @maxLength(8)
 param VmHostname string = 'dkrhost'
 
 @description('Set the size for the VM')
+@minLength(6)
 param HostVmSize string = 'Standard_D2_v3'
 
 @description('Set a username to log in to the hosts')
+@minLength(3)
 param VmAdminUsername string = 'localadmin'
 
 @description('Name of the vnet')
+@minLength(3)
 param VnetName string = 'dockervnet'
 
 @description('Set the address space for the VNet')
@@ -32,16 +39,20 @@ param VnetAddressPrefix string = '172.16.0.0/16'
 param Subnet1Name string = 'dockersubnet'
 
 @description('Set the subnet range for subnet1')
+@minLength(9)
 param Subnet1Prefix string = '172.16.24.0/24'
 
 @description('Set the NSG name')
+@minLength(3)
 param NetworkSecurityGroupName string = 'dockernsg'
 
 @description('Set the Public IP Address suffix to append to the FQDN for the hosts')
+@minLength(3)
 @maxLength(7)
 param publicIPAddressNameSuffix string = 'dhostip'
 
 @description('Set the path to the github directory that has the custom script extension scripts')
+@minLength(10)
 param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/'
 
 @description('Set the number of hosts to create')
