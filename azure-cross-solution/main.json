@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.3.255.40792",
-      "templateHash": "4338830708565418724"
+      "templateHash": "5846771695910432676"
     }
   },
   "parameters": {
@@ -28,6 +28,7 @@
     "ResourceGroupName": {
       "type": "string",
       "defaultValue": "singlehost",
+      "maxLength": 10,
       "metadata": {
         "description": "Set the resource group name, this will be created automatically"
       }
@@ -58,7 +59,7 @@
       "type": "string",
       "defaultValue": "dockervnet",
       "metadata": {
-        "description": "Name of the first docker host"
+        "description": "Name of the vnet"
       }
     },
     "VnetAddressPrefix": {
@@ -72,14 +73,14 @@
       "type": "string",
       "defaultValue": "dockersubnet",
       "metadata": {
-        "description": "Set the name for Subnet1"
+        "description": "Set the name for the docker subnet"
       }
     },
     "Subnet1Prefix": {
       "type": "string",
       "defaultValue": "172.16.24.0/24",
       "metadata": {
-        "description": "Set the subnet range for Subnet1"
+        "description": "Set the subnet range for subnet1"
       }
     },
     "NetworkSecurityGroupName": {
@@ -92,6 +93,7 @@
     "publicIPAddressNameSuffix": {
       "type": "string",
       "defaultValue": "dhostip",
+      "maxLength": 7,
       "metadata": {
         "description": "Set the Public IP Address suffix to append to the FQDN for the hosts"
       }

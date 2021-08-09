@@ -9,6 +9,7 @@ param adUserId string  = ''
 param Location string = 'UK South'
 
 @description('Set the resource group name, this will be created automatically')
+@maxLength(10)
 param ResourceGroupName string = 'singlehost'
 
 @description('Set the prefix of the docker hosts')
@@ -21,22 +22,23 @@ param HostVmSize string = 'Standard_D2_v3'
 @description('Set a username to log in to the hosts')
 param VmAdminUsername string = 'localadmin'
 
-@description('Name of the first docker host')
+@description('Name of the vnet')
 param VnetName string = 'dockervnet'
 
 @description('Set the address space for the VNet')
 param VnetAddressPrefix string = '172.16.0.0/16'
 
-@description('Set the name for Subnet1')
+@description('Set the name for the docker subnet')
 param Subnet1Name string = 'dockersubnet'
 
-@description('Set the subnet range for Subnet1')
+@description('Set the subnet range for subnet1')
 param Subnet1Prefix string = '172.16.24.0/24'
 
 @description('Set the NSG name')
 param NetworkSecurityGroupName string = 'dockernsg'
 
 @description('Set the Public IP Address suffix to append to the FQDN for the hosts')
+@maxLength(7)
 param publicIPAddressNameSuffix string = 'dhostip'
 
 @description('Set the path to the github directory that has the custom script extension scripts')
