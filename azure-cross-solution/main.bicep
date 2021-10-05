@@ -13,7 +13,7 @@ param Location string = 'UK South'
 @description('Set the resource group name, this will be created automatically')
 @minLength(3)
 @maxLength(10)
-param ResourceGroupName string = 'dockerhosts'
+param ResourceGroupName string = 'dockerhost'
 
 @description('Set the prefix of the docker hosts')
 @minLength(3)
