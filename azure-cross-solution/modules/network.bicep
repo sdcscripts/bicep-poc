@@ -5,32 +5,11 @@
 
 param addressPrefix string          
 param subnet1Name  string             
-param subnet1Prefix string             
+param subnet1Prefix string     
+param bastionNetworkName string   
+param bastionSubnet string     
 param virtualNetworkName string      
-param networkSecurityGroupName string 
 param location string
-
-resource sg 'Microsoft.Network/networkSecurityGroups@2020-06-01' = {
-  name: networkSecurityGroupName
-  location: location
-  properties: {
-    securityRules: [
-      {
-        name: 'default-allow-ssh'
-        'properties': {
-          priority: 1000
-          access: 'Allow'
-          direction: 'Inbound'
-          destinationPortRange: '22'
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          sourceAddressPrefix: '*'
-          destinationAddressPrefix: '*'
-        }
-      }
-    ]
-  }
-}
 
 resource vn 'Microsoft.Network/virtualNetworks@2020-06-01' = {
   name: virtualNetworkName
@@ -46,9 +25,12 @@ resource vn 'Microsoft.Network/virtualNetworks@2020-06-01' = {
         name: subnet1Name
         properties: {
           addressPrefix: subnet1Prefix
-          networkSecurityGroup: {
-            id: sg.id
-          }
+        }
+      }
+      {
+        name: bastionNetworkName
+        properties: {
+          addressPrefix: bastionSubnet
         }
       }
     ]
@@ -57,4 +39,6 @@ resource vn 'Microsoft.Network/virtualNetworks@2020-06-01' = {
 
 
 output subnet1name string = vn.properties.subnets[0].name
+output bastionSubnetName string = vn.properties.subnets[1].name
 output vnid string = vn.id
+

@@ -1,5 +1,3 @@
-// Example of similar "module" call out structure - https://github.com/Azure/bicep/blob/main/docs/examples/301/modules-vwan-to-vnet-s2s-with-fw/main.bicep
-
 @minLength(36)
 @maxLength(36)
 @description('Used to set the Keyvault access policy - run this command using az cli to get your ObjectID : az ad signed-in-user show --query objectId -o tsv')
@@ -42,18 +40,9 @@ param Subnet1Name string = 'dockersubnet'
 @minLength(9)
 param Subnet1Prefix string = '172.16.24.0/24'
 
-@description('Set the NSG name')
-@minLength(3)
-param NetworkSecurityGroupName string = 'dockernsg'
-
-@description('Set the Public IP Address suffix to append to the FQDN for the hosts')
-@minLength(3)
-@maxLength(7)
-param publicIPAddressNameSuffix string = 'dhostip'
-
 @description('Set the path to the github directory that has the custom script extension scripts')
 @minLength(10)
-param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/'
+param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-poc/addbastion/azure-cross-solution/scripts/'
 
 @description('Set the number of hosts to create')
 @minValue(2)
@@ -61,6 +50,9 @@ param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-po
 param numberOfHosts int = 2
 
 var subnet1ref = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.subnet1name}'
+var bastionNetworkName = 'AzureBastionSubnet'
+var bastionSubnet = '172.16.1.0/24'
+var bastionNetworkref = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.bastionSubnetName}'
 targetScope = 'subscription'
 
 resource rg 'Microsoft.Resources/resourceGroups@2020-10-01' = {
@@ -85,7 +77,6 @@ module dockerhost './modules/vm.bicep' =[for i in range (1,numberOfHosts): {
     subnet1ref               : subnet1ref
     vmSize                   : HostVmSize
     githubPath               : githubPath
-    publicIPAddressNameSuffix: '${publicIPAddressNameSuffix}${i}'
   }
   name: '${VmHostname}${i}'
   scope: rg
@@ -95,9 +86,10 @@ module dockernetwork './modules/network.bicep' = {
   params: {
     addressPrefix            : VnetAddressPrefix
     location                 : Location
-    networkSecurityGroupName : NetworkSecurityGroupName
     subnet1Name              : Subnet1Name
     subnet1Prefix            : Subnet1Prefix
+    bastionNetworkName       : bastionNetworkName
+    bastionSubnet            : bastionSubnet
     virtualNetworkName       : VnetName
   }
 
@@ -105,9 +97,19 @@ module dockernetwork './modules/network.bicep' = {
   scope: rg
 } 
 
+module Bastion './modules/bastion.bicep' = {
+  params:{
+    bastionHostName: 'bastion'
+    location: Location
+    subnetRef: bastionNetworkref
+  }
+  scope:rg
+  name: 'bastion'
+  }
+
 // Future iteration this should be replaced with a loop through outputs of the module
 
-output HostFQDNs array = [for i in range(1, numberOfHosts): dockerhost[i - 1].outputs.dockerhostfqdn]
+// output HostFQDNs array = [for i in range(1, numberOfHosts): dockerhost[i - 1].outputs.dockerhostfqdn]
 
 /* Deployment using bicep (via az cli)
 
