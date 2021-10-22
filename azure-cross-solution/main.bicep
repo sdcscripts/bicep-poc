@@ -42,7 +42,7 @@ param Subnet1Prefix string = '172.16.24.0/24'
 
 @description('Set the path to the github directory that has the custom script extension scripts')
 @minLength(10)
-param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-poc/addbastion/azure-cross-solution/scripts/'
+param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/'
 
 @description('Set the number of hosts to create')
 @minValue(2)
