@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.3.255.40792",
-      "templateHash": "6556817742032746960"
+      "templateHash": "18197493805377218562"
     }
   },
   "parameters": {
@@ -93,7 +93,7 @@
     },
     "githubPath": {
       "type": "string",
-      "defaultValue": "https://raw.githubusercontent.com/sdcscripts/bicep-poc/addbastion/azure-cross-solution/scripts/",
+      "defaultValue": "https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/",
       "minLength": 10,
       "metadata": {
         "description": "Set the path to the github directory that has the custom script extension scripts"
