@@ -4,7 +4,7 @@ param vmname string
 param subnet1ref string
 param githubPath string
 @secure()
-param adminPassword string = '${uniqueString(resourceGroup().id)}aA1!' // aA1! to meet complexity requirements
+param adminPassword string = '${uniqueString(resourceGroup().id, vmname)}aA1!' // aA1! to meet complexity requirements
 
 @description('Size of the virtual machine.')
 param vmSize string 
