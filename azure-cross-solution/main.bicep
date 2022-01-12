@@ -37,13 +37,13 @@ param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-po
 @maxValue(9)
 param numberOfHosts int  = 2
 
-var   location           = deployment().location
-var   VnetAddressPrefix  = '172.16.0.0/16'
-var   Subnet1Prefix      = '172.16.24.0/24'
-var   bastionSubnet      = '172.16.1.0/24'
-var   bastionNetworkName = 'AzureBastionSubnet'
-var   subnet1ref         = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.subnet1name}'
-var   bastionNetworkref  = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.bastionSubnetName}'
+var location           = deployment().location
+var VnetAddressPrefix  = '172.16.0.0/16'
+var Subnet1Prefix      = '172.16.24.0/24'
+var bastionSubnet      = '172.16.1.0/24'
+var bastionNetworkName = 'AzureBastionSubnet'
+var subnet1ref         = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.subnet1name}'
+var bastionNetworkref  = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.bastionSubnetName}'
 
 targetScope  = 'subscription'
 
