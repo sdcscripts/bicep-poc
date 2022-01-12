@@ -3,11 +3,6 @@
 @description('Used to set the Keyvault access policy - run this command using az cli to get your ObjectID : az ad signed-in-user show --query objectId -o tsv')
 param adUserId string  = ''
 
-@description('Set the location for the resource group and all resources')
-@minLength(3)
-@maxLength(20)
-param Location string = 'UK South'
-
 @description('Set the resource group name, this will be created automatically')
 @minLength(3)
 @maxLength(10)
@@ -40,20 +35,21 @@ param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-po
 @description('Set the number of hosts to create')
 @minValue(2)
 @maxValue(9)
-param numberOfHosts int = 2
+param numberOfHosts int  = 2
 
-var VnetAddressPrefix  = '172.16.0.0/16'
-var Subnet1Prefix      = '172.16.24.0/24'
-var bastionSubnet      = '172.16.1.0/24'
-var bastionNetworkName = 'AzureBastionSubnet'
-var subnet1ref         = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.subnet1name}'
-var bastionNetworkref  = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.bastionSubnetName}'
+var   location           = deployment().location
+var   VnetAddressPrefix  = '172.16.0.0/16'
+var   Subnet1Prefix      = '172.16.24.0/24'
+var   bastionSubnet      = '172.16.1.0/24'
+var   bastionNetworkName = 'AzureBastionSubnet'
+var   subnet1ref         = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.subnet1name}'
+var   bastionNetworkref  = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.bastionSubnetName}'
 
 targetScope  = 'subscription'
 
 resource rg 'Microsoft.Resources/resourceGroups@2020-10-01' = {
   name: ResourceGroupName
-  location: Location
+  location: location
 }
 
 module kv './modules/kv.bicep' = {
@@ -81,7 +77,7 @@ module dockerhost './modules/vm.bicep' =[for i in range (1,numberOfHosts): {
 module dockernetwork './modules/network.bicep' = {
   params: {
     addressPrefix            : VnetAddressPrefix
-    location                 : Location
+    location                 : location
     subnet1Name              : Subnet1Name
     subnet1Prefix            : Subnet1Prefix
     bastionNetworkName       : bastionNetworkName
@@ -96,7 +92,7 @@ module dockernetwork './modules/network.bicep' = {
 module Bastion './modules/bastion.bicep' = {
   params:{
     bastionHostName: 'bastion'
-    location: Location
+    location: location
     subnetRef: bastionNetworkref
   }
   scope:rg

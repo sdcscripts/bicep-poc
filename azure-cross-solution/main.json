@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.3.255.40792",
-      "templateHash": "11239803038205840081"
+      "templateHash": "9976995307981209778"
     }
   },
   "parameters": {
@@ -69,26 +69,11 @@
         "description": "Name of the vnet"
       }
     },
-    "VnetAddressPrefix": {
-      "type": "string",
-      "defaultValue": "172.16.0.0/16",
-      "metadata": {
-        "description": "Set the address space for the VNet"
-      }
-    },
     "Subnet1Name": {
       "type": "string",
       "defaultValue": "dockersubnet",
       "metadata": {
         "description": "Set the name for the docker subnet"
-      }
-    },
-    "Subnet1Prefix": {
-      "type": "string",
-      "defaultValue": "172.16.24.0/24",
-      "minLength": 9,
-      "metadata": {
-        "description": "Set the subnet range for subnet1"
       }
     },
     "githubPath": {
@@ -111,8 +96,10 @@
   },
   "functions": [],
   "variables": {
-    "bastionNetworkName": "AzureBastionSubnet",
-    "bastionSubnet": "172.16.1.0/24"
+    "VnetAddressPrefix": "172.16.0.0/16",
+    "Subnet1Prefix": "172.16.24.0/24",
+    "bastionSubnet": "172.16.1.0/24",
+    "bastionNetworkName": "AzureBastionSubnet"
   },
   "resources": [
     {
@@ -456,7 +443,7 @@
         "mode": "Incremental",
         "parameters": {
           "addressPrefix": {
-            "value": "[parameters('VnetAddressPrefix')]"
+            "value": "[variables('VnetAddressPrefix')]"
           },
           "location": {
             "value": "[parameters('Location')]"
@@ -465,7 +452,7 @@
             "value": "[parameters('Subnet1Name')]"
           },
           "subnet1Prefix": {
-            "value": "[parameters('Subnet1Prefix')]"
+            "value": "[variables('Subnet1Prefix')]"
           },
           "bastionNetworkName": {
             "value": "[variables('bastionNetworkName')]"
