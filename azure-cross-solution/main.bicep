@@ -30,15 +30,8 @@ param VmAdminUsername string = 'localadmin'
 @minLength(3)
 param VnetName string = 'dockervnet'
 
-@description('Set the address space for the VNet')
-param VnetAddressPrefix string = '172.16.0.0/16'
-
 @description('Set the name for the docker subnet')
 param Subnet1Name string = 'dockersubnet'
-
-@description('Set the subnet range for subnet1')
-@minLength(9)
-param Subnet1Prefix string = '172.16.24.0/24'
 
 @description('Set the path to the github directory that has the custom script extension scripts')
 @minLength(10)
@@ -49,11 +42,14 @@ param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-po
 @maxValue(9)
 param numberOfHosts int = 2
 
-var subnet1ref = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.subnet1name}'
+var VnetAddressPrefix  = '172.16.0.0/16'
+var Subnet1Prefix      = '172.16.24.0/24'
+var bastionSubnet      = '172.16.1.0/24'
 var bastionNetworkName = 'AzureBastionSubnet'
-var bastionSubnet = '172.16.1.0/24'
-var bastionNetworkref = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.bastionSubnetName}'
-targetScope = 'subscription'
+var subnet1ref         = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.subnet1name}'
+var bastionNetworkref  = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.bastionSubnetName}'
+
+targetScope  = 'subscription'
 
 resource rg 'Microsoft.Resources/resourceGroups@2020-10-01' = {
   name: ResourceGroupName
