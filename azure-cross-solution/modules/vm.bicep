@@ -4,7 +4,7 @@ param vmname string
 param subnet1ref string
 param githubPath string
 @secure()
-param adminPassword string = '${uniqueString(resourceGroup().id, vmname)}aA1!' // aA1! to meet complexity requirements
+param adminPassword string = '${uniqueString(resourceGroup().id, vmname)}aA1!'
 
 @description('Size of the virtual machine.')
 param vmSize string 
@@ -12,8 +12,22 @@ param vmSize string
 @description('location for all resources')
 param location string = resourceGroup().location
 
+param publicIPAddressNameSuffix string = 'pip'
+var dnsLabelPrefix = 'dns-${uniqueString(resourceGroup().id, vmname)}-${publicIPAddressNameSuffix}'
+
 var storageAccountName = '${uniqueString(resourceGroup().id)}${vmname}sa'
 var nicName = '${vmname}myVMNic'
+
+resource pip 'Microsoft.Network/publicIPAddresses@2020-06-01' = {
+  name: '${nicName}-${publicIPAddressNameSuffix}'
+  location: location
+  properties: {
+    publicIPAllocationMethod: 'Static'
+    dnsSettings: {
+      domainNameLabel: dnsLabelPrefix
+    }
+  }
+}
 
 resource stg 'Microsoft.Storage/storageAccounts@2019-06-01' = {
   name: storageAccountName
@@ -24,7 +38,6 @@ resource stg 'Microsoft.Storage/storageAccounts@2019-06-01' = {
   kind: 'Storage'
 }
 
-
 resource nInter 'Microsoft.Network/networkInterfaces@2020-06-01' = {
   name: nicName
   location: location
@@ -34,7 +47,11 @@ resource nInter 'Microsoft.Network/networkInterfaces@2020-06-01' = {
       {
         name: 'ipconfig1'
         properties: {
+          
           privateIPAllocationMethod: 'Dynamic'
+          publicIPAddress: {
+            id: pip.id
+          }
           subnet: {
             id: subnet1ref
           }
@@ -96,6 +113,17 @@ resource keyvaultname_secretname 'Microsoft.keyvault/vaults/secrets@2019-09-01' 
   properties: {
     contentType: 'securestring'
     value: adminPassword
+    attributes: {
+      enabled: true
+    }
+  }
+}
+
+resource keyvaultname_username 'Microsoft.keyvault/vaults/secrets@2019-09-01' = {
+  name: '${keyvault_name}/${vmname}-admin-username'
+  properties: {
+    contentType: 'string'
+    value: adminusername
     attributes: {
       enabled: true
     }

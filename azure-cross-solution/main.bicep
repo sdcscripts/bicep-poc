@@ -89,6 +89,26 @@ module dockernetwork './modules/network.bicep' = {
   scope: rg
 } 
 
+module defaultNSG './modules/nsg.bicep' = {
+  name: 'hubNSG'
+  params:{
+    location: location
+    destinationAddressPrefix:dockernetwork.outputs.subnet1addressPrefix
+  }
+scope:rg
+}
+
+module onpremNsgAttachment './modules/nsgAttachment.bicep' = {
+  name: 'onpremNsgAttachment'
+  params:{
+    nsgId              : defaultNSG.outputs.nsgId
+    subnetAddressPrefix: dockernetwork.outputs.subnet1addressPrefix                    
+    subnetName         : dockernetwork.outputs.subnet1name
+    vnetName           : dockernetwork.outputs.vnName
+  }
+  scope:rg
+}
+
 module Bastion './modules/bastion.bicep' = {
   params:{
     bastionHostName: 'bastion'
