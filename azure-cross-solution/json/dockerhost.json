@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.3.255.40792",
-      "templateHash": "6319430558605405580"
+      "templateHash": "17925312958342656670"
     }
   },
   "parameters": {
@@ -264,7 +264,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.3.255.40792",
-              "templateHash": "15511934471688168387"
+              "templateHash": "1646284524992687398"
             }
           },
           "parameters": {
@@ -429,7 +429,7 @@
             },
             {
               "type": "Microsoft.Compute/virtualMachines/extensions",
-              "apiVersion": "2021-03-01",
+              "apiVersion": "2021-04-01",
               "name": "[format('{0}/cse', parameters('vmname'))]",
               "location": "[parameters('location')]",
               "properties": {
