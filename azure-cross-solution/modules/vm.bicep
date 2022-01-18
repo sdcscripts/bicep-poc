@@ -130,7 +130,7 @@ resource keyvaultname_username 'Microsoft.keyvault/vaults/secrets@2019-09-01' = 
   }
 }
 
-resource cse 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
+resource cse 'Microsoft.Compute/virtualMachines/extensions@2020-12-01' = {
   name: '${vmname}/cse'
   location: location
   dependsOn:[
