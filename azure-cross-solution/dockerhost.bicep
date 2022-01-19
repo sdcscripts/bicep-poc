@@ -60,7 +60,6 @@ module kv './modules/kv.bicep' = {
   scope: rg
 }
 
-// The VM passwords are generated at run time and automatically stored in Keyvault. 
 module dockerhost './modules/vm.bicep' =[for i in range (1,numberOfHosts): {
   params: {
     adminusername            : VmAdminUsername
@@ -118,20 +117,3 @@ module Bastion './modules/bastion.bicep' = {
   scope:rg
   name: 'bastion'
   }
-
-// Future iteration this should be replaced with a loop through outputs of the module
-
-// output HostFQDNs array = [for i in range(1, numberOfHosts): dockerhost[i - 1].outputs.dockerhostfqdn]
-
-/* Deployment using bicep (via az cli)
-
-The first command retrieves the signed-in usr object ID to use for setting Keyvault permissions, you need to add this ObjectID to the adUserId parameter at the top of this file.
-All other parameters have defaults set. 
-
-Command:   az ad signed-in-user show --query objectId -o tsv
-
-The second command deploys this main.bicep 
-
-Command: az deployment sub create --name docker-single-host --template-file .\main.bicep --location uksouth
-
- */
