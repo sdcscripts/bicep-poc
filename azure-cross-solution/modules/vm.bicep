@@ -84,13 +84,6 @@ resource VM 'Microsoft.Compute/virtualMachines@2020-06-01' = {
       osDisk: {
         createOption: 'FromImage'
       }
-    /*  dataDisks: [                  // Uncomment to add data disk
-        {
-          diskSizeGB: 1023
-          lun: 0
-          createOption: 'Empty'
-        }
-      ] */
     }
     networkProfile: {
       networkInterfaces: [
