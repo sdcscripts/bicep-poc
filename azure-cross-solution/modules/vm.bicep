@@ -3,6 +3,7 @@ param keyvault_name string
 param vmname string
 param subnet1ref string
 param githubPath string
+
 @secure()
 param adminPassword string = '${uniqueString(resourceGroup().id, vmname)}aA1!'
 
@@ -15,8 +16,8 @@ param location string = resourceGroup().location
 param publicIPAddressNameSuffix string = 'pip'
 var dnsLabelPrefix = 'dns-${uniqueString(resourceGroup().id, vmname)}-${publicIPAddressNameSuffix}'
 
-var storageAccountName = '${uniqueString(resourceGroup().id)}${vmname}sa'
-var nicName = '${vmname}myVMNic'
+var storageAccountName = '${uniqueString(resourceGroup().id, vmname)}'
+var nicName = '${vmname}-nic'
 
 resource pip 'Microsoft.Network/publicIPAddresses@2020-06-01' = {
   name: '${nicName}-${publicIPAddressNameSuffix}'

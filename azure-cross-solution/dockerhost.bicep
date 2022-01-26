@@ -8,11 +8,6 @@ param adUserId string  = ''
 @maxLength(10)
 param ResourceGroupName string = 'dockerhost'
 
-@description('Set the prefix of the docker hosts')
-@minLength(3)
-@maxLength(8)
-param VmHostname string = 'dkrhost'
-
 @description('Set the size for the VM')
 @minLength(6)
 param HostVmSize string = 'Standard_D2_v3'
@@ -37,6 +32,8 @@ param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-po
 @maxValue(9)
 param numberOfHosts int  = 2
 
+targetScope        = 'subscription'
+
 var location           = deployment().location
 var VnetAddressPrefix  = '172.16.0.0/16'
 var Subnet1Prefix      = '172.16.24.0/24'
@@ -44,8 +41,7 @@ var bastionSubnet      = '172.16.1.0/24'
 var bastionNetworkName = 'AzureBastionSubnet'
 var subnet1ref         = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.subnet1name}'
 var bastionNetworkref  = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.bastionSubnetName}'
-
-targetScope  = 'subscription'
+var VmHostnamePrefix   = 'docker-host-'
 
 resource rg 'Microsoft.Resources/resourceGroups@2020-10-01' = {
   name: ResourceGroupName
@@ -64,12 +60,12 @@ module dockerhost './modules/vm.bicep' =[for i in range (1,numberOfHosts): {
   params: {
     adminusername            : VmAdminUsername
     keyvault_name            : kv.outputs.keyvaultname
-    vmname                   : '${VmHostname}${i}'
+    vmname                   : '${VmHostnamePrefix}${i}'
     subnet1ref               : subnet1ref
     vmSize                   : HostVmSize
     githubPath               : githubPath
   }
-  name: '${VmHostname}${i}'
+  name: '${VmHostnamePrefix}${i}'
   scope: rg
 } ]
 
