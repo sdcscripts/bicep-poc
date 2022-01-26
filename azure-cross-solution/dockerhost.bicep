@@ -58,12 +58,13 @@ module kv './modules/kv.bicep' = {
 
 module dockerhost './modules/vm.bicep' =[for i in range (1,numberOfHosts): {
   params: {
-    adminusername            : VmAdminUsername
-    keyvault_name            : kv.outputs.keyvaultname
-    vmname                   : '${VmHostnamePrefix}${i}'
-    subnet1ref               : subnet1ref
-    vmSize                   : HostVmSize
-    githubPath               : githubPath
+    adminusername  : VmAdminUsername
+    keyvault_name  : kv.outputs.keyvaultname
+    vmname         : '${VmHostnamePrefix}${i}'
+    subnet1ref     : subnet1ref
+    vmSize         : HostVmSize
+    githubPath     : githubPath
+    adUserId       : adUserId
   }
   name: '${VmHostnamePrefix}${i}'
   scope: rg
@@ -71,13 +72,13 @@ module dockerhost './modules/vm.bicep' =[for i in range (1,numberOfHosts): {
 
 module dockernetwork './modules/network.bicep' = {
   params: {
-    addressPrefix            : VnetAddressPrefix
-    location                 : location
-    subnet1Name              : Subnet1Name
-    subnet1Prefix            : Subnet1Prefix
-    bastionNetworkName       : bastionNetworkName
-    bastionSubnet            : bastionSubnet
-    virtualNetworkName       : VnetName
+    addressPrefix       : VnetAddressPrefix
+    location            : location
+    subnet1Name         : Subnet1Name
+    subnet1Prefix       : Subnet1Prefix
+    bastionNetworkName  : bastionNetworkName
+    bastionSubnet       : bastionSubnet
+    virtualNetworkName  : VnetName
   }
 
   name: 'dockernetwork'

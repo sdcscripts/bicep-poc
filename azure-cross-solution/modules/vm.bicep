@@ -3,9 +3,10 @@ param keyvault_name string
 param vmname string
 param subnet1ref string
 param githubPath string
+param adUserId string
 
 @secure()
-param adminPassword string = '${uniqueString(resourceGroup().id, vmname)}aA1!'
+param adminPassword string = '${uniqueString(resourceGroup().id, vmname)}aA1!${uniqueString(adUserId)}'
 
 @description('Size of the virtual machine.')
 param vmSize string 
