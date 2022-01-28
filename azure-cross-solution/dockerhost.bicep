@@ -25,11 +25,11 @@ param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-po
 @maxValue(9)
 param numberOfHosts int  = 2
 
-targetScope        = 'subscription'
+targetScope            = 'subscription'
+var location           = deployment().location
 
 var VnetName           = 'dockervnet'
 var Subnet1Name        = 'dockersubnet'
-var location           = deployment().location
 var VnetAddressPrefix  = '172.16.0.0/16'
 var Subnet1Prefix      = '172.16.24.0/24'
 var bastionSubnet      = '172.16.1.0/24'
