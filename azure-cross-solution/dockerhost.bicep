@@ -16,13 +16,6 @@ param HostVmSize string = 'Standard_D2_v3'
 @minLength(3)
 param VmAdminUsername string = 'localadmin'
 
-@description('Name of the vnet')
-@minLength(3)
-param VnetName string = 'dockervnet'
-
-@description('Set the name for the docker subnet')
-param Subnet1Name string = 'dockersubnet'
-
 @description('Set the path to the github directory that has the custom script extension scripts')
 @minLength(10)
 param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/'
@@ -34,6 +27,8 @@ param numberOfHosts int  = 2
 
 targetScope        = 'subscription'
 
+var VnetName           = 'dockervnet'
+var Subnet1Name        = 'dockersubnet'
 var location           = deployment().location
 var VnetAddressPrefix  = '172.16.0.0/16'
 var Subnet1Prefix      = '172.16.24.0/24'
