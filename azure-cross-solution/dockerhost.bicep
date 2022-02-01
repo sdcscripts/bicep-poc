@@ -12,20 +12,8 @@ param ResourceGroupName string = 'dockerhost'
 @minLength(6)
 param HostVmSize string = 'Standard_D2_v3'
 
-@description('Set a username to log in to the hosts')
-@minLength(3)
-param VmAdminUsername string = 'localadmin'
-
-@description('Set the path to the github directory that has the custom script extension scripts')
-@minLength(10)
-param githubPath string = 'https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/'
-
-@description('Set the number of hosts to create')
-@minValue(2)
-@maxValue(9)
-param numberOfHosts int  = 2
-
 targetScope            = 'subscription'
+
 var location           = deployment().location
 
 var VnetName           = 'dockervnet'
@@ -37,12 +25,14 @@ var bastionNetworkName = 'AzureBastionSubnet'
 var subnet1ref         = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.subnet1name}'
 var bastionNetworkref  = '${dockernetwork.outputs.vnid}/subnets/${dockernetwork.outputs.bastionSubnetName}'
 var VmHostnamePrefix   = 'docker-host-'
+var VmAdminUsername    = 'localadmin'
+var numberOfHosts      = 2
+var githubPath         = 'https://raw.githubusercontent.com/sdcscripts/bicep-poc/main/azure-cross-solution/scripts/'
 
 resource rg 'Microsoft.Resources/resourceGroups@2020-10-01' = {
   name: ResourceGroupName
   location: location
 }
-
 module kv './modules/kv.bicep' = {
   params: {
     adUserId: adUserId
@@ -50,7 +40,6 @@ module kv './modules/kv.bicep' = {
   name: 'kv'
   scope: rg
 }
-
 module dockerhost './modules/vm.bicep' =[for i in range (1,numberOfHosts): {
   params: {
     adminusername  : VmAdminUsername
@@ -64,7 +53,6 @@ module dockerhost './modules/vm.bicep' =[for i in range (1,numberOfHosts): {
   name: '${VmHostnamePrefix}${i}'
   scope: rg
 } ]
-
 module dockernetwork './modules/network.bicep' = {
   params: {
     addressPrefix       : VnetAddressPrefix
