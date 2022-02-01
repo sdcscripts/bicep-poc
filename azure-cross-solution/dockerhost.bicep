@@ -76,7 +76,6 @@ module defaultNSG './modules/nsg.bicep' = {
   }
 scope:rg
 }
-
 module onpremNsgAttachment './modules/nsgAttachment.bicep' = {
   name: 'onpremNsgAttachment'
   params:{
@@ -87,7 +86,6 @@ module onpremNsgAttachment './modules/nsgAttachment.bicep' = {
   }
   scope:rg
 }
-
 module Bastion './modules/bastion.bicep' = {
   params:{
     bastionHostName: 'bastion'
